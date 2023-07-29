@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de Tarefas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Lista de Tarefas</h1> <!-- Adicionando o título novamente -->
+
+  <form id="task-form">
+    <input type="text" id="task-input" placeholder="Digite sua tarefa..." required>
+    <button type="submit">Adicionar</button>
+  </form>
+  <div id="tasks"></div>
+
+  <div id="chat-gpt">Feito com ajuda do Chat GPT</div> <!-- Adicionando a frase no cantinho inferior direito -->
+
+  <script>
+    const form = document.getElementById('task-form');
+    const taskList = document.getElementById('tasks');
+
+    form.onsubmit = function (e) {
+      e.preventDefault();
+      const inputField = document.getElementById('task-input');
+      addTask(inputField.value);
+      form.reset();
+    };
+
+    function addTask(description) {
+      const taskContainer = document.createElement('div');
+      const newTask = document.createElement('input');
+      const taskLabel = document.createElement('label');
+      const deleteButton = document.createElement('button'); // Botão de Excluir
+      const taskDescriptionNode = document.createTextNode(description);
+
+      newTask.setAttribute('type', 'checkbox');
+      newTask.setAttribute('name', description);
+      newTask.setAttribute('id', description);
+
+      taskLabel.setAttribute('for', description);
+      taskLabel.appendChild(taskDescriptionNode);
+
+      deleteButton.textContent = 'Excluir'; // Adicionando o texto 'Excluir' ao botão
+      deleteButton.style.display = 'none'; // Esconde o botão inicialmente
+
+      taskContainer.classList.add('task-item');
+      taskContainer.appendChild(newTask);
+      taskContainer.appendChild(taskLabel);
+      taskContainer.appendChild(deleteButton); // Adicionando o botão de Excluir ao container
+
+      taskList.appendChild(taskContainer);
+
+      // Adicionando o evento para mostrar/esconder o botão de Excluir
+      newTask.addEventListener('change', function () {
+        if (this.checked) {
+          deleteButton.style.display = 'block'; // Exibe o botão quando a tarefa estiver concluída
+        } else {
+          deleteButton.style.display = 'none'; // Esconde o botão quando a tarefa não estiver concluída
+        }
+      });
+
+      // Evento para excluir a tarefa ao clicar no botão de Excluir
+      deleteButton.addEventListener('click', function () {
+        if (newTask.checked) {
+          taskList.removeChild(taskContainer); // Remove a tarefa da lista apenas se estiver concluída
+        }
+      });
+    }
+
+
+    
+  </script>
+</body>
+</html>
+
