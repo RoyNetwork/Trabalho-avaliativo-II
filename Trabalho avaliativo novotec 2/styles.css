@@ -57,3 +57,11 @@ button[type="button"] {
     padding: 10px;
     border-radius: 5px;
   }
+
+  .imagem {
+    background-image: URL('Detroit-Michigan.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh; /* Define a altura do elemento como 100% da altura da tela */
+  }
